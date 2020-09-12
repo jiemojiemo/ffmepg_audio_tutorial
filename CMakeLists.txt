@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.10)
 project(ffmepg_audio_tutorial)
 
 list (APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-include(FindFFMPEG)
 
 find_package(FFMPEG REQUIRED)
 if(NOT FFMPEG_FOUND)
