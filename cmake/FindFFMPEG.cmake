@@ -32,7 +32,7 @@ include(FindPackageHandleStandardArgs)
 
 # The default components were taken from a survey over other FindFFMPEG.cmake files
 if (NOT FFmpeg_FIND_COMPONENTS)
-    set(FFmpeg_FIND_COMPONENTS AVCODEC AVFORMAT AVUTIL)
+    set(FFmpeg_FIND_COMPONENTS AVCODEC AVFORMAT AVUTIL SWRESAMPLE)
 endif ()
 
 #
@@ -102,6 +102,7 @@ if (NOT FFMPEG_LIBRARIES)
     find_component(AVUTIL   libavutil   avutil   libavutil/avutil.h)
     find_component(SWSCALE  libswscale  swscale  libswscale/swscale.h)
     find_component(POSTPROC libpostproc postproc libpostproc/postprocess.h)
+    find_component(SWRESAMPLE libswresample swresample libswresample/swresample.h)
 
     # Check if the required components were found and add their stuff to the FFMPEG_* vars.
     foreach (_component ${FFmpeg_FIND_COMPONENTS})
