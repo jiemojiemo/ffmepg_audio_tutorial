@@ -24,6 +24,11 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+    if(argc < 2){
+        cerr << "Usage: decoder_audio /full/path/to/audio_file\n";
+        return -1;
+    }
+
     const string path = argv[1];
 
     AVFormatContext *pFormatContext = avformat_alloc_context();
