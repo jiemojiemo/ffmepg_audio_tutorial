@@ -23,16 +23,6 @@ extern "C"
 #include <string>
 using namespace std;
 
-static bool findSampleFormat(const enum AVSampleFormat fmt, const enum AVSampleFormat *fmt_list){
-    while (*fmt_list != AV_SAMPLE_FMT_NONE) {
-        if(*fmt_list == fmt)
-            return true;
-        fmt_list++;
-    }
-
-    return false;
-}
-
 static void encode(AVCodecContext *ctx, AVFrame *frame, AVPacket *pkt,
                    AVFormatContext* pFormatCtx, AVStream* audio_st)
 {
