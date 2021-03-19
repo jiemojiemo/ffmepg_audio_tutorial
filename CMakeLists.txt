@@ -24,6 +24,10 @@ add_executable(decode_audio 1_decode_audio.cpp)
 target_include_directories(decode_audio PRIVATE ${FFMPEG_INCLUDE_DIRS})
 target_link_libraries(decode_audio PRIVATE ${FFMPEG_LIBRARIES})
 
-add_executable(encoder_audio 2_encoder_audio.cpp)
+add_executable(encoder_audio 2_encode_audio.cpp)
 target_include_directories(encoder_audio PRIVATE ${FFMPEG_INCLUDE_DIRS})
 target_link_libraries(encoder_audio PRIVATE ${FFMPEG_LIBRARIES})
+
+add_executable(decode_from_memory 3_decode_with_callback.cpp)
+target_include_directories(decode_from_memory PRIVATE ${FFMPEG_INCLUDE_DIRS})
+target_link_libraries(decode_from_memory PRIVATE ${FFMPEG_LIBRARIES})
