@@ -15,19 +15,22 @@ else()
     message(STATUS "ffmpeg libraries are ${FFMPEG_LIBRARIES}")
 endif()
 
+add_library(ffmpeg_dep INTERFACE)
+target_link_libraries(ffmpeg_dep INTERFACE ${FFMPEG_LIBRARIES})
+target_include_directories(ffmpeg_dep INTERFACE ${FFMPEG_INCLUDE_DIRS})
+
 
 add_executable(hello_ffmpeg 0_hello_ffmpeg.cpp)
-target_include_directories(hello_ffmpeg PRIVATE ${FFMPEG_INCLUDE_DIRS})
-target_link_libraries(hello_ffmpeg PRIVATE ${FFMPEG_LIBRARIES})
+target_link_libraries(hello_ffmpeg ffmpeg_dep)
 
 add_executable(decode_audio 1_decode_audio.cpp)
-target_include_directories(decode_audio PRIVATE ${FFMPEG_INCLUDE_DIRS})
-target_link_libraries(decode_audio PRIVATE ${FFMPEG_LIBRARIES})
+target_link_libraries(decode_audio ffmpeg_dep)
 
 add_executable(encoder_audio 2_encode_audio.cpp)
-target_include_directories(encoder_audio PRIVATE ${FFMPEG_INCLUDE_DIRS})
-target_link_libraries(encoder_audio PRIVATE ${FFMPEG_LIBRARIES})
+target_link_libraries(encoder_audio ffmpeg_dep)
 
 add_executable(decode_from_memory 3_decode_with_callback.cpp)
-target_include_directories(decode_from_memory PRIVATE ${FFMPEG_INCLUDE_DIRS})
-target_link_libraries(decode_from_memory PRIVATE ${FFMPEG_LIBRARIES})
+target_link_libraries(decode_from_memory ffmpeg_dep)
+
+add_executable(4_print_codec_and_formats 4_print_codec_and_formats.cpp)
+target_link_libraries(4_print_codec_and_formats ffmpeg_dep)
