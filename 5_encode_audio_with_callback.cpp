@@ -99,7 +99,6 @@ int main(int argc, char* argv[])
         const std::string format_name = "mp3";
         mammon::FileByteStream byte_stream(output_file);
 
-//        AVFormatContext *pFormatContext = avformat_alloc_context();
         AVFormatContext *pFormatContext = NULL;
         avformat_alloc_output_context2(&pFormatContext, NULL, format_name.c_str(), NULL);
         if(!pFormatContext){
@@ -110,18 +109,14 @@ int main(int argc, char* argv[])
         auto* avio_ctx_buffer = (uint8_t*)av_malloc(kAVIOCtxBufferSize);
 
         AVIOContext* avio_ctx = avio_alloc_context(avio_ctx_buffer, kAVIOCtxBufferSize,
-                                                   0, &byte_stream,
-                                                   readPacketCallback,
+                                                   1, &byte_stream,
+                                                   NULL,
                                                    writePacketCallback,
-                                                   seekCallback);
+                                                   NULL);
+        assert(avio_ctx != NULL);
 
         pFormatContext->pb = avio_ctx;
-        // open output file
-        if(avio_open(&pFormatContext->pb, output_file.c_str(), AVIO_FLAG_WRITE) < 0){
-            cerr << "Cannot open output file\n";
-            return -1;
-        }
-        assert(avio_ctx != NULL);
+        pFormatContext->flags=AVFMT_FLAG_CUSTOM_IO;
 
         // create new audio stream
         AVStream* audio_st = avformat_new_stream(pFormatContext, 0);
@@ -216,8 +211,8 @@ int main(int argc, char* argv[])
         // flush
         encode(codec_ctx, NULL, pkt, pFormatContext, audio_st);
 
-        avformat_close_input(&pFormatContext);
         av_freep(&avio_ctx->buffer);
         avio_context_free(&avio_ctx);
+        avformat_close_input(&pFormatContext);
     }
 }
