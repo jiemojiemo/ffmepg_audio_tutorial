@@ -34,3 +34,6 @@ target_link_libraries(decode_from_memory ffmpeg_dep)
 
 add_executable(4_print_codec_and_formats 4_print_codec_and_formats.cpp)
 target_link_libraries(4_print_codec_and_formats ffmpeg_dep)
+
+add_executable(5_encode_audio_with_callback 5_encode_audio_with_callback.cpp)
+target_link_libraries(5_encode_audio_with_callback ffmpeg_dep)
